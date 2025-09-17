@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --concierge-black: #0B0B0D;
+  --concierge-charcoal: #111217;
+  --concierge-charcoal-light: #14151A;
+  --concierge-white: #EDEDED;
+  --concierge-silver: #C0C0C0;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--concierge-black);
+  color: var(--concierge-white);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--concierge-charcoal);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--concierge-charcoal-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--concierge-silver);
+}
+
+/* Email input focus styles */
+.email-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(192, 192, 192, 0.3);
+}
+
+/* Button hover effects */
+.join-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, var(--concierge-charcoal-light), var(--concierge-charcoal));
+  border: 1px solid rgba(192, 192, 192, 0.2);
+}
+
+.join-button:hover {
+  background: linear-gradient(135deg, var(--concierge-silver), var(--concierge-charcoal-light));
+  border-color: var(--concierge-silver);
+  color: var(--concierge-black);
+  transform: translateY(-1px);
+}
+
+/* Typography classes */
+.title-cursive {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.subhead-sans {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+
+/* Glass morphism effect */
+.glass-morphism {
+  background: rgba(17, 18, 23, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(192, 192, 192, 0.1);
+}
+
+/* Animation utilities */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Smooth transforms for 3D animations */
+.will-change-transform {
+  will-change: transform;
+}
+
+/* High-contrast focus for accessibility */
+@media (prefers-contrast: high) {
+  .email-input:focus,
+  .join-button:focus {
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
