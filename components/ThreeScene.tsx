@@ -5,8 +5,15 @@ import { Environment, Preload } from '@react-three/drei'
 import { Suspense, useEffect, useState } from 'react'
 import Scene from './Scene'
 import LoadingScreen from './LoadingScreen'
+import { AnimationSettings } from './admin/TimelineEditor'
+import { ModelSettings } from './admin/ModelPositionPanel'
 
-export default function ThreeScene() {
+interface ThreeSceneProps {
+  animationSettings?: AnimationSettings
+  modelSettings?: ModelSettings
+}
+
+export default function ThreeScene({ animationSettings, modelSettings }: ThreeSceneProps) {
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
@@ -67,7 +74,7 @@ export default function ThreeScene() {
 
       {/* Main scene content */}
       <Suspense fallback={null}>
-        <Scene />
+        <Scene animationSettings={animationSettings} modelSettings={modelSettings} />
         <Preload all />
       </Suspense>
     </Canvas>

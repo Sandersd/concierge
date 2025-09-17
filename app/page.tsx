@@ -1,10 +1,13 @@
 'use client'
 
-import { Suspense } from 'react'
+import { Suspense, useState, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import EmailCapture from '@/components/EmailCapture'
 import LoadingScreen from '@/components/LoadingScreen'
 import ErrorBoundary from '@/components/ErrorBoundary'
+import AdminController from '@/components/admin/AdminController'
+import { AnimationSettings } from '@/components/admin/TimelineEditor'
+import { ModelSettings } from '@/components/admin/ModelPositionPanel'
 
 // Dynamically import 3D components to avoid SSR issues
 const ThreeScene = dynamic(() => import('@/components/ThreeScene'), {
@@ -13,19 +16,39 @@ const ThreeScene = dynamic(() => import('@/components/ThreeScene'), {
 })
 
 export default function Home() {
+  const [animationSettings, setAnimationSettings] = useState<AnimationSettings | undefined>()
+  const [modelSettings, setModelSettings] = useState<ModelSettings | undefined>()
+
+  const handleAnimationUpdate = useCallback((settings: AnimationSettings) => {
+    setAnimationSettings(settings)
+  }, [])
+
+  const handleModelUpdate = useCallback((settings: ModelSettings) => {
+    setModelSettings(settings)
+  }, [])
+
   return (
     <main className="relative min-h-screen overflow-hidden">
+      {/* Admin Controller */}
+      <AdminController 
+        onAnimationUpdate={handleAnimationUpdate}
+        onModelUpdate={handleModelUpdate}
+      />
+
       {/* 3D Background Scene */}
       <div className="fixed inset-0 w-full h-full">
         <ErrorBoundary>
           <Suspense fallback={<LoadingScreen />}>
-            <ThreeScene />
+            <ThreeScene 
+              animationSettings={animationSettings}
+              modelSettings={modelSettings}
+            />
           </Suspense>
         </ErrorBoundary>
       </div>
 
-      {/* Hero Section with Scroll Animation */}
-      <section id="hero" className="relative z-10 min-h-[300vh]">
+      {/* Hero Section with Infinite Scroll Animation */}
+      <section id="hero" className="relative z-10 h-[200vh]">
         {/* UI Overlay positioned above tray */}
         <div className="sticky top-0 h-screen flex items-center justify-center">
           <div 
